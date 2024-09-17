@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post[1] }} - Blog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Blog Post</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('services') }}">Services</a>
+            <a href="{{ url_for('products') }}">Products</a>
+            <a href="{{ url_for('industries') }}">Industries</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>{{ post[1] }}</h2>
+        <p>{{ post[2] }}</p>
+        <small>Published on: {{ post[3] }}</small>
+
+        <section class="related-posts">
+            <h3>Related Posts</h3>
+            <ul>
+                {% for related_post in related_posts %}
+                    <li><a href="/post/{{ related_post[0] }}">{{ related_post[1] }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LogiFact Solutions. All rights reserved.</p>
+    </footer>
+</body>
+</html>

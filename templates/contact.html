@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - LogiFact Solutions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>LogiFact Solutions</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/contact">Contact</a>
+            <a href="/products">Products</a>
+            <a href="/industries">Industries</a>
+            <a href="/gallery">Gallery</a>
+        </nav>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search..." required>
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <main>
+        <section>
+            <h2>Contact Us</h2>
+            <p>If you have any questions or comments, please reach out to us using the form below or through the contact information provided.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-messages">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <form action="/submit_contact" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Type your message here" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Our Contact Information</h2>
+            <table>
+                <tr>
+                    <td><strong>Address:</strong></td>
+                    <td>1234 Kenyatta Ave, Suite 567, Mombasa, Kenya, 80100</td>
+                </tr>
+                <tr>
+                    <td><strong>Phone:</strong></td>
+                    <td>(254) 456-7890</td>
+                </tr>
+                <tr>
+                    <td><strong>Email:</strong></td>
+                    <td><a href="mailto:info@logifactsolutions.com">info@logifactsolutions.com</a></td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Follow Us</h2>
+            <p>Stay connected with us on social media:</p>
+            <ul class="social-links">
+                <li><a href="https://www.facebook.com/profile.php?id=61566321052891" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
+                <li><a href="https://twitter.com/LogiFactSolutions" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                <li><a href="https://linkedin.com/company/logifactsolutions" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LogiFact Solutions. All rights reserved.</p>
+    </footer>
+</body>
+</html>

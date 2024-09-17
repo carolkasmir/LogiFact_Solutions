@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiFact Solutions - Services</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>LogiFact Solutions - Services</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/products">Products</a>
+            <div class="dropdown">
+                <span class="dropbtn">Services</span>
+                <div class="dropdown-content">
+                    <a href="/services#service1">Manufacturing Solutions</a>
+                    <a href="/services#service2">Logistics Management</a>
+                    <a href="/services#service3">Consulting Services</a>
+                    <a href="/services#service4">Industry 4.0 Integration</a>
+                    <a href="/services#service5">AI-Powered Predictive Analytics</a>
+                </div>
+            </div>
+            <a href="/industries">Industries</a>
+            <a href="/contact">Contact</a>
+            <a href="/gallery">Gallery</a>
+        </nav>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search..." required>
+            <button type="submit">Search</button>
+        </form>        
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Our Services</h2>
+            <p>Explore our comprehensive range of services designed to optimize manufacturing processes, integrate cutting-edge technologies, and enhance supply chain management.</p>
+        </section>
+
+        <section class="services">
+            <div class="service-card">
+                <h3 id="service1">Manufacturing Solutions</h3>
+                <p>We offer tailored manufacturing solutions that include automation, quality control, and process optimization. Our technology helps improve production efficiency and product quality.</p>
+            </div>
+
+            <div class="service-card">
+                <h3 id="service2">Logistics Management</h3>
+                <p>Our logistics management services are designed to streamline your supply chain operations. We provide advanced logistics solutions to ensure timely and efficient delivery of goods.</p>
+            </div>
+
+            <div class="service-card">
+                <h3 id="service3">Consulting Services</h3>
+                <p>Our expert consultants offer strategic planning and operational advice to enhance your manufacturing and logistics processes. We provide customized solutions to meet your specific needs.</p>
+            </div>
+
+            <div class="service-card">
+                <h3 id="service4">Industry 4.0 Integration</h3>
+                <p>Embrace the future of manufacturing with our Industry 4.0 integration services. We help you implement IoT, smart automation, and advanced data analytics to modernize your operations.</p>
+            </div>
+
+            <div class="service-card">
+                <h3 id="service5">AI-Powered Predictive Analytics</h3>
+                <p>Utilize our AI-driven predictive analytics to gain valuable insights and forecast trends. Our solutions enable you to make data-driven decisions and optimize your manufacturing and logistics operations.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LogiFact Solutions. All rights reserved.</p>
+    </footer>
+</body>
+</html>

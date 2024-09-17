@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Our Products</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/contact">Contact</a>
+            <a href="/products">Products</a>
+            <a href="/industries">Industries</a>
+            <a href="/gallery">Gallery</a>
+        </nav>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search..." required>
+            <button type="submit">Search</button>
+        </form>
+    </header>
+    
+    <main>
+        <section class="products">
+            <h2>Available Products</h2>
+            <div class="product-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <h3>{{ product[1] }}</h3>
+                    <p>{{ product[2] }}</p>
+                    <p>Price: KSh {{ product[3] }}</p>
+                    {% if product[4] %}
+                    <img src="{{ product[4] }}" alt="{{ product[1] }}" class="product-image">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LogiFact Solutions. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiFact Solutions - Home</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to LogiFact Solutions</h1>
+        <nav>
+            <a href="/">Home</a>
+            <div class="dropdown">
+                <span class="dropbtn">Products</span>
+                <div class="dropdown-content">
+                    <a href="/products#product1">Brick Making Machines</a>
+                    <a href="/products#product2">Rice Milling Machines</a>
+                    <a href="/products#product3">Packaging Machines</a>
+                    <a href="/products#product4">Water Purification Systems</a>
+                    <a href="/products#product5">Metalworking Machinery</a>
+                    <a href="/products#product6">Textile Machines</a>
+                    <a href="/products#product7">Refrigerated Delivery Vans</a>
+                    <a href="/products#product8">Forklifts</a>
+                    <a href="/products#product9">Cargo Trucks</a>
+                    <a href="/products#product10">Warehouse Shelving Systems</a>
+                    <a href="/products#product11">Logistics Management Software</a>
+                    <a href="/products#product12">Pallet Jacks</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <span class="dropbtn">Services</span>
+                <div class="dropdown-content">
+                    <a href="/services#service1">Manufacturing Solutions</a>
+                    <a href="/services#service2">Logistics Management</a>
+                    <a href="/services#service3">Consulting Services</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <span class="dropbtn">Industries</span>
+                <div class="dropdown-content">
+                    <a href="/industries#industry1">Automotive</a>
+                    <a href="/industries#industry2">Pharmaceuticals</a>
+                    <a href="/industries#industry3">Food & Beverage</a>
+                    <a href="/industries#industry4">Electronics</a>
+                    <a href="/industries#industry5">Construction</a>
+                </div>
+            </div>
+            <a href="/contact">Contact</a>
+            <a href="/gallery">Gallery</a>
+        </nav>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search..." required>
+            <button type="submit">Search</button>
+        </form>
+        
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Welcome to LogiFact Solutions</h2>
+            <p>We are at the forefront of manufacturing efficiency and supply chain optimization. Our advanced solutions leverage Industry 4.0 technologies, AI for predictive analytics, and innovative logistics software to streamline your operations.</p>
+            <a href="/contact" class="btn">Get in Touch</a>
+        </section>
+
+        <section class="overview">
+            <h2>What We Offer</h2>
+            <div class="overview-card">
+                <h3>Products</h3>
+                <p>Explore our wide range of products designed to enhance your manufacturing processes. From advanced machinery to logistics management software, we provide solutions tailored to your needs.</p>
+                <a href="/products" class="btn">Learn More</a>
+            </div>
+            <div class="overview-card">
+                <h3>Services</h3>
+                <p>Our services include comprehensive manufacturing solutions, logistics management, and expert consulting. Discover how we can help you improve efficiency and drive growth in your business.</p>
+                <a href="/services" class="btn">Discover Services</a>
+            </div>
+            <div class="overview-card">
+                <h3>Industries</h3>
+                <p>We serve a variety of industries including automotive, pharmaceuticals, food & beverage, and more. Learn how our solutions are tailored to meet the specific challenges of each sector.</p>
+                <a href="/industries" class="btn">Explore Industries</a>
+            </div>
+        </section>
+
+        <section class="latest-news">
+            <h2>Latest News & Updates</h2>
+            <ul>
+                {% for post in blog_posts %}
+                    <li>
+                        <h3><a href="/post/{{ post[0] }}">{{ post[1] }}</a></h3>
+                        <p>{{ post[2]|truncate(100) }}...</p>
+                        <small>{{ post[3] }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LogiFact Solutions. All rights reserved.</p>
+    </footer>
+</body>
+</html>

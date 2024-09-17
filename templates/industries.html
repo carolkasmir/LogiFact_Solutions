@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industries - LogiFact Solutions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>LogiFact Solutions</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/services">Services</a>
+            <a href="/contact">Contact</a>
+            <a href="/products">Products</a>
+            <a href="/gallery">Gallery</a>
+            <a href="/industries">Industries</a>
+        </nav>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search..." required>
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <main>
+        <section class="industries">
+            <h2>Industries We Serve</h2>
+            <p>At LogiFact Solutions, we are dedicated to providing tailored solutions for a wide range of industries. Our expertise spans across various sectors, ensuring that we meet the specific needs of each industry effectively.</p>
+
+            <div class="industry-list">
+                {% for industry in industries %}
+                <div class="industry-item">
+                    <h3>{{ industry[1] }}</h3> 
+                    <p>{{ industry[2] }}</p> 
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LogiFact Solutions. All rights reserved.</p>
+    </footer>
+</body>
+</html>
