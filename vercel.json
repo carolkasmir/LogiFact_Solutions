@@ -1,40 +1,11 @@
 {
     "version": 2,
     "builds": [
-      {
-        "src": "app.py",
-        "use": "@vercel/python",
-        "config": {
-          "maxLambdaSize": "50mb"
-        }
-      }
+      { "src": "app.py", "use": "@vercel/python" }
     ],
     "routes": [
-      {
-        "src": "/static/(.*)",
-        "dest": "/static/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/app.py"
-      }
-    ],
-    "env": {
-      "MYSQL_USER": "@mysql_user",
-      "MYSQL_PASSWORD": "@mysql_password",
-      "MYSQL_DB": "@mysql_db",
-      "MYSQL_HOST": "@mysql_host",
-      "FLASK_SECRET_KEY": "@flask_secret_key"
-    },
-    "build": {
-      "env": {
-        "MYSQL_USER": "@mysql_user",
-        "MYSQL_PASSWORD": "@mysql_password",
-        "MYSQL_DB": "@mysql_db",
-        "MYSQL_HOST": "@mysql_host",
-        "FLASK_SECRET_KEY": "@flask_secret_key"
-      }
-    }
+      { "src": "/(.*)", "dest": "app.py" }
+    ]
   }
   
   
