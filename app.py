@@ -1,16 +1,13 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, jsonify, flash, url_for
 from flask_mysqldb import MySQL
-import pymysql
-import os
 from config import Config
 
-# Use PyMySQL as a drop-in replacement for MySQLdb
-pymysql.install_as_MySQLdb()
+app = Flask(__name__)
+app.config.from_object(Config)
 
 app = Flask(__name__)
-app.config.from_object(Config)  # Load configuration from config.py
+app.config.from_object(Config) 
 
-# Initialize MySQL
 mysql = MySQL(app)
 
 @app.route('/')
