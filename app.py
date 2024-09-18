@@ -5,21 +5,13 @@ from config import Config
 app = Flask(__name__)
 app.config.from_object(Config)
 
-app = Flask(__name__)
-app.config.from_object(Config) 
-
 mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    try:
-        with mysql.connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM blog_posts ORDER BY date DESC LIMIT 5")
-            blog_posts_data = cursor.fetchall()
-    except Exception as e:
-        print(f"Error retrieving blog posts: {e}")
-        blog_posts_data = []
-
+    with mysql.connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM blog_posts ORDER BY date DESC LIMIT 5")
+        blog_posts_data = cursor.fetchall()
     return render_template('index.html', blog_posts=blog_posts_data)
 
 @app.route('/services')
@@ -28,26 +20,16 @@ def services():
 
 @app.route('/products')
 def products():
-    try:
-        with mysql.connection.cursor() as cursor:
-            cursor.execute('SELECT * FROM products') 
-            products_data = cursor.fetchall()
-    except Exception as e:
-        print(f"Error retrieving products: {e}")
-        products_data = []
-
+    with mysql.connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM products') 
+        products_data = cursor.fetchall()
     return render_template('products.html', products=products_data)
 
 @app.route('/industries')
 def industries():
-    try:
-        with mysql.connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM industries")
-            industries_data = cursor.fetchall()
-    except Exception as e:
-        print(f"Error retrieving industries: {e}")
-        industries_data = []
-
+    with mysql.connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM industries")
+        industries_data = cursor.fetchall()
     return render_template('industries.html', industries=industries_data)
 
 @app.route('/contact')
@@ -95,22 +77,18 @@ def search():
 
 @app.route('/post/<int:post_id>')
 def post(post_id):
-    try:
-        with mysql.connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM blog_posts WHERE id = %s", (post_id,))
-            post_data = cursor.fetchone()
-            
-            if not post_data:
-                return redirect(url_for('index'))
-            
-            cursor.execute("SELECT * FROM blog_posts WHERE id != %s ORDER BY date DESC LIMIT 5", (post_id,))
-            related_posts_data = cursor.fetchall()
-    except Exception as e:
-        print(f"Error retrieving post or related posts: {e}")
-        post_data = None
-        related_posts_data = []
+    with mysql.connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM blog_posts WHERE id = %s", (post_id,))
+        post_data = cursor.fetchone()
+        
+        if not post_data:
+            return redirect(url_for('index'))
+        
+        cursor.execute("SELECT * FROM blog_posts WHERE id != %s ORDER BY date DESC LIMIT 5", (post_id,))
+        related_posts_data = cursor.fetchall()
 
     return render_template('blog.html', post=post_data, related_posts=related_posts_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
