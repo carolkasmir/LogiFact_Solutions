@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect, jsonify, flash, url_for
 from flask_mysqldb import MySQL
+import pymysql
+import os
 from config import Config
+
+pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
 app.config.from_object(Config)
