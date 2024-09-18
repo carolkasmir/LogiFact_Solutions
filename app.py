@@ -1,21 +1,28 @@
-from flask import Flask, render_template, request, redirect, jsonify, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_mysqldb import MySQL
 import pymysql
 import os
 from config import Config
 
+# Use PyMySQL as a drop-in replacement for MySQLdb
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object(Config)  # Load configuration from config.py
 
+# Initialize MySQL
 mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    with mysql.connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM blog_posts ORDER BY date DESC LIMIT 5")
-        blog_posts_data = cursor.fetchall()
+    try:
+        with mysql.connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM blog_posts ORDER BY date DESC LIMIT 5")
+            blog_posts_data = cursor.fetchall()
+    except Exception as e:
+        print(f"Error retrieving blog posts: {e}")
+        blog_posts_data = []
+
     return render_template('index.html', blog_posts=blog_posts_data)
 
 @app.route('/services')
@@ -24,16 +31,26 @@ def services():
 
 @app.route('/products')
 def products():
-    with mysql.connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM products') 
-        products_data = cursor.fetchall()
+    try:
+        with mysql.connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM products') 
+            products_data = cursor.fetchall()
+    except Exception as e:
+        print(f"Error retrieving products: {e}")
+        products_data = []
+
     return render_template('products.html', products=products_data)
 
 @app.route('/industries')
 def industries():
-    with mysql.connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM industries")
-        industries_data = cursor.fetchall()
+    try:
+        with mysql.connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM industries")
+            industries_data = cursor.fetchall()
+    except Exception as e:
+        print(f"Error retrieving industries: {e}")
+        industries_data = []
+
     return render_template('industries.html', industries=industries_data)
 
 @app.route('/contact')
@@ -70,29 +87,31 @@ def search():
         return redirect(url_for('index'))
     
     try:
-        cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM products WHERE name LIKE %s OR description LIKE %s', ('%' + query + '%', '%' + query + '%'))
-        search_results = cursor.fetchall()
-        cursor.close()
+        with mysql.connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM products WHERE name LIKE %s OR description LIKE %s', ('%' + query + '%', '%' + query + '%'))
+            search_results = cursor.fetchall()
     except Exception as e:
         print(f"Error during search: {e}")
         search_results = []
 
-    print(f"Search results: {search_results}")  
-    
     return render_template('search.html', query=query, results=search_results)
 
 @app.route('/post/<int:post_id>')
 def post(post_id):
-    with mysql.connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM blog_posts WHERE id = %s", (post_id,))
-        post_data = cursor.fetchone()
-        
-        if not post_data:
-            return redirect(url_for('index'))
-        
-        cursor.execute("SELECT * FROM blog_posts WHERE id != %s ORDER BY date DESC LIMIT 5", (post_id,))
-        related_posts_data = cursor.fetchall()
+    try:
+        with mysql.connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM blog_posts WHERE id = %s", (post_id,))
+            post_data = cursor.fetchone()
+            
+            if not post_data:
+                return redirect(url_for('index'))
+            
+            cursor.execute("SELECT * FROM blog_posts WHERE id != %s ORDER BY date DESC LIMIT 5", (post_id,))
+            related_posts_data = cursor.fetchall()
+    except Exception as e:
+        print(f"Error retrieving post or related posts: {e}")
+        post_data = None
+        related_posts_data = []
 
     return render_template('blog.html', post=post_data, related_posts=related_posts_data)
 
